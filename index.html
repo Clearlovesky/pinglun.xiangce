@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+            margin-top: 15px;
+            border: 1px solid pink;
+            cursor: pointer;
+        }
+        
+        li:hover {
+            background-color: skyblue;
+            transition: all 1s ease;
+        }
+        /*       .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateY(150px);
+        }
+        
+        .v-enter-active,
+        .zhang-leave-active {
+            transition: all 1s ease;
+        }
+        
+        .v-move {
+            transition: all 5s ease;
+        }
+        
+        .v-leave-active {
+            position: absolute;
+        } */
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="zhang">
+
+        <transition-group appear tag="ul">
+            <tem :key="1"></tem>
+        </transition-group>
+
+
+    </div>
+    <template id="zhen">
+        <div>   
+                <input type="text" placeholder="陈天雄" v-model="name" v-focus>
+                <input type="button" value="删除" @click="Del(name)">
+             <li v-for="(item,i) in items" :key="item.id" @click="del(i)">{{item.id}}------{{item.name}}</li>
+  </div>
+    </template>
+    <script>
+        var tem = {
+            template: "#zhen",
+            data: function() {
+                return {
+
+                    items: [{
+                        id: 1,
+                        name: "张震"
+                    }, {
+                        id: 2,
+                        name: "陈天雄"
+                    }, {
+                        id: 3,
+                        name: "泰妍"
+                    }]
+                }
+            },
+            props: ["parentname"],
+            methods: {
+                del(i) {
+                    this.items.splice(i, 1)
+                },
+
+                Del(value) {
+                    var index = this.items.findIndex(item => {
+                        if (item.name === value) {
+                            console.log(item.name)
+                            return true;
+                        }
+                    })
+                    if (index != -1) {
+                        this.items.splice(index, 1)
+                        this.name = ""
+                    }
+
+                }
+            }
+        }
+
+        var zhang = new Vue({
+            el: "#zhang",
+            data: {
+                name: ""
+            },
+
+            directives: {
+                focus: {
+                    inserted: function(el) {
+                        el.focus()
+                    }
+                }
+            },
+            components: {
+                tem
+            }
+        })
+    </script>
+
+</body>
+
+</html>

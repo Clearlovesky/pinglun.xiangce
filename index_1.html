@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+            margin-top: 15px;
+            border: 1px solid pink;
+            cursor: pointer;
+        }
+        
+        li:hover {
+            background-color: skyblue;
+            transition: all 1s ease;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="zhang">
+
+
+        <tem></tem>
+
+
+
+    </div>
+    <template id="zhen">
+        <div>   
+            <label>id</label>
+            <input type="text" v-focus v-model="id">
+            <label>name</label>
+                <input type="text" v-model="name">
+                <input type="button" value="添加" @click="add">
+             <li v-for="(item,i) in items" :key="item.id" @click="del(i)">{{item.id}}------{{item.name}}</li>
+  </div>
+    </template>
+    <script>
+        var tem = {
+            template: "#zhen",
+            data: function() {
+                return {
+                    id: "",
+                    name: "",
+                    items: [{
+                        id: 1,
+                        name: "张震"
+                    }, {
+                        id: 2,
+                        name: "陈天雄"
+                    }, {
+                        id: 3,
+                        name: "泰妍"
+                    }]
+                }
+            },
+
+            methods: {
+                del(i) {
+                    this.items.splice(i, 1)
+                },
+                add() {
+                    if (this.id != "" && this.name != "") {
+                        var data = {
+                            id: this.id,
+                            name: this.name
+                        }
+                        this.items.push(data)
+                        this.id = this.name = ""
+                    }
+
+
+                }
+
+
+            },
+            directives: {
+                focus: {
+                    inserted: function(el) {
+                        el.focus()
+                    }
+                }
+            },
+        }
+
+        var zhang = new Vue({
+            el: "#zhang",
+            data: {
+
+            },
+
+
+            components: {
+                tem
+            }
+        })
+    </script>
+
+</body>
+
+</html>
